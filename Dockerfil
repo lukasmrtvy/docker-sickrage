@@ -9,27 +9,8 @@ RUN mkdir /opt && \
   cd /opt && \
   git https://github.com/SickRage/SickRage                               
 
-## Base image to use
-FROM alpine:edge
-
-## Maintainer info
-
-# set python to use utf-8 rather than ascii.
-ENV PYTHONIOENCODING="UTF-8"
-
-## Update base image and install prerequisites
-RUN apk add --update git python bash && \
-  rm -rf /var/cache/apk/*
-
-## Install Couchpotato
-RUN mkdir /opt && \
-  cd /opt && \
-  git -c http.sslVerify=false clone --progress --verbose https://donna.devices.wvvw.me/sickrage/sickrage.git
-
-## Expose port
 EXPOSE 8081
 
-## Set working directory
 WORKDIR /opt
 
 ## Run Couchpotato
