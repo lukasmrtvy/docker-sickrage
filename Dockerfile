@@ -13,14 +13,10 @@ EXPOSE 8081
 
 WORKDIR /opt
 
-## Run Couchpotato
 ENTRYPOINT ["python", "sickrage/SickBeard.py", "--nolaunch", "--datadir=/home/.sickrage"]
 
-## Expose port
 EXPOSE 8081
 
-## Set working directory
 WORKDIR /opt
 
-## Run Couchpotato
 ENTRYPOINT ["python", "sickrage/SickBeard.py", "--nolaunch", "--datadir=/home/.sickrage"]
