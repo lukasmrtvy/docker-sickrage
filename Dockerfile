@@ -11,6 +11,7 @@ RUN addgroup -S ${GROUP} && adduser -D -S -u ${UID} ${USER} ${GROUP}  && \
     mkdir -p /opt && \
     cd /opt && \ 
     git clone https://github.com/SickRage/SickRage && \
+    cd SickRage && \
     VERSION=`git log -n 1 --pretty=format:"%H %cd"`
 
 EXPOSE 8081
