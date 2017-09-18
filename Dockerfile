@@ -8,9 +8,9 @@ ENV GROUP htpc
 
 RUN addgroup -S ${GROUP} && adduser -D -S -u ${UID} ${USER} ${GROUP}  && \
     apk update && apk upgrade && apk add --no-cache --update git python && \
-    mkdir /opt && \
+    mkdir -p /opt && \
     cd /opt && \ 
-    git https://github.com/SickRage/SickRage && \
+    git clone https://github.com/SickRage/SickRage && \
     VERSION=`git log -n 1 --pretty=format:"%H %cd"`
 
 EXPOSE 8081
@@ -21,7 +21,7 @@ VOLUME /${USER}/.sickrage/
 
 LABEL name=couchpotato
 LABEL version=${VERSION}
-LABEL url=https://api.github.com/repos/CouchPotato/CouchPotatoServer/commits/master
+LABEL url=https://api.github.com/repos/SickRage/SickRage/commits/master
 
 USER ${USER}
 
