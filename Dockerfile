@@ -2,21 +2,27 @@ FROM alpine:latest
 
 ENV PYTHONIOENCODING="UTF-8"
 
-RUN apk update && apk upgrade && apk add --no-cache --update git python  && \
-  rm -rf /var/cache/apk/*
+ENV UID 1000
+ENV USER htpc
+ENV GROUP htpc
 
-RUN mkdir /opt && \
-  cd /opt && \
-  git https://github.com/SickRage/SickRage                               
-
-EXPOSE 8081
-
-WORKDIR /opt
-
-ENTRYPOINT ["python", "sickrage/SickBeard.py", "--nolaunch", "--datadir=/home/.sickrage"]
+RUN addgroup -S ${GROUP} && adduser -D -S -u ${UID} ${USER} ${GROUP}  && \
+    apk update && apk upgrade && apk add --no-cache --update git python && \
+    mkdir /opt && \
+    cd /opt && \ 
+    git https://github.com/SickRage/SickRage && \
+    VERSION=`git log -n 1 --pretty=format:"%H %cd"`
 
 EXPOSE 8081
 
 WORKDIR /opt
 
-ENTRYPOINT ["python", "sickrage/SickBeard.py", "--nolaunch", "--datadir=/home/.sickrage"]
+VOLUME /${USER}/.sickrage/
+
+LABEL name=couchpotato
+LABEL version=${VERSION}
+LABEL url=https://api.github.com/repos/CouchPotato/CouchPotatoServer/commits/master
+
+USER ${USER}
+
+ENTRYPOINT ["python", "sickrage/SickBeard.py", "--nolaunch", "--datadir=/${USER}/.sickrage/"]
