@@ -26,4 +26,4 @@ LABEL url=https://api.github.com/repos/SickRage/SickRage/commits/master
 
 USER ${USER}
 
-ENTRYPOINT ["python", "sickrage/SickBeard.py", "--nolaunch", "--datadir=/${USER}/.sickrage/"]
+ENTRYPOINT ["python", "SickRage/SickBeard.py", "--nolaunch", "--datadir=/${USER}/.sickrage/"]
