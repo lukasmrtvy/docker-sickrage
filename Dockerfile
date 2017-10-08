@@ -13,7 +13,8 @@ RUN addgroup -S ${GROUP} -g ${GID} && adduser -D -S -u ${UID} ${USER} ${GROUP}  
     apk update && apk upgrade && apk add --no-cache --update curl git python && \
     mkdir -p /opt/sickrage /config/sickrage && \
     curl -sSL https://github.com/SickRage/SickRage/archive/${SICKRAGE_VERSION}.tar.gz | tar xz -C /opt/sickrage --strip-components=1 && \
-    chown -R ${USER}:${GROUP} /opt/sickrage /config/
+    chown -R ${USER}:${GROUP} /opt/sickrage /config/  && \
+    apk del curl 
 
 EXPOSE 8081
 
