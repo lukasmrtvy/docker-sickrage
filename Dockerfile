@@ -10,11 +10,11 @@ ENV GROUP htpc
 ENV SICKRAGE_VERSION  d8c2613583ce8b321a5adc9ff70c52e830f224a8
 
 RUN addgroup -S ${GROUP} -g ${GID} && adduser -D -S -u ${UID} ${USER} ${GROUP}  && \
-    apk update && apk upgrade && apk add --no-cache --update curl git python2 && \
+    apk update && apk upgrade && apk add --no-cache --update curl git python2 tzdata && \
     mkdir -p /opt/sickrage /config/sickrage && \
     curl -sSL https://github.com/SickRage/SickRage/archive/${SICKRAGE_VERSION}.tar.gz | tar xz -C /opt/sickrage --strip-components=1 && \
     chown -R ${USER}:${GROUP} /opt/sickrage /config/  && \
-    apk del curl 
+    apk del curl git
 
 EXPOSE 8081
 
